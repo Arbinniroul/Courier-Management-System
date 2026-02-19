@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('order_number')->unique();
+            $table->foreignId('customer_id')->constrained();
+            $table->string('pickup_address');
+            $table->string('delivery_address');
+            $table->enum('status',['pending','assigned','in_transit','delivered','cancelled'])->default('pending');
+            $table->text('description')->nullable();
+            $table->decimal('weight',8,2)->nullable();
+            $table->text('special_instructions');
+            $table->timestamp('scheduled_pickup')->nullable();
+            $table->timestamp('scheduled_delivery')->nullable();
             $table->timestamps();
         });
     }

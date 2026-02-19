@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->string('name');
+            $table->string('phone');
+            $table->string('vehicle_number');
+            $table->string('vehicle_type');
+            $table->enum('status',['available','busy','offline'])->default('available');
             $table->timestamps();
+
         });
     }
 
